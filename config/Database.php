@@ -1,5 +1,6 @@
 <?php
 
+require 'env/config.php';
 
 class Database
 {

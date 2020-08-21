@@ -16,11 +16,11 @@ class Post
 
     /**
      * Post constructor.
-     * @param $db
+     * @param $conn
      */
-    public function __construct($db)
+    public function __construct($conn)
     {
-        $this->conn = $db;
+        $this->conn = $conn;
     }
 
     public function read()
@@ -28,12 +28,12 @@ class Post
         $query = 'SELECT 
                       c.name as category_name,
                       p.id,
-                      p.category,
+                      p.category_id,                      
                       p.title,
                       p.body,
                       p.author,
                       p.created_at
-                  FROM ' . $this->table . 'p
+                  FROM ' . $this->table . ' p
                   LEFT JOIN categories c ON p.category_id = c.id
                   ORDER BY p.created_at DESC';
 
