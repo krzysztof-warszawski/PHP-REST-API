@@ -9,7 +9,7 @@
 
     $post = new Post($conn);
 
-    $result = $post->read();
+    $result = $post->read_all();
 
     // Get row count
     $num = $result->rowCount();
