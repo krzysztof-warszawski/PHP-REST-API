@@ -88,5 +88,29 @@ class Category
         }
     }
 
+    public function update()
+    {
+        $query = 'UPDATE ' . $this->table .'
+                SET 
+                    name = :category_name
+                WHERE id = :id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->category_name = htmlspecialchars(strip_tags($this->category_name));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $stmt->bindValue(':category_name', $this->category_name);
+        $stmt->bindValue(':id', $this->id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+
+            printf("Error: %s.\n", $stmt->error);
+
+            return false;
+        }
+    }
 
 }
