@@ -66,5 +66,27 @@ class Category
 //        }
     }
 
+    public function create()
+    {
+        $query = 'INSERT INTO ' . $this->table .'
+                SET 
+                    name = :category_name';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->category_name = htmlspecialchars(strip_tags($this->category_name));
+
+        $stmt->bindValue(':category_name', $this->category_name);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+
+            printf("Error: %s.\n", $stmt->error);
+
+            return false;
+        }
+    }
+
 
 }
