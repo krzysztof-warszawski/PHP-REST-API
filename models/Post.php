@@ -114,4 +114,38 @@ class Post
             return false;
         }
     }
+
+    public function update()
+    {
+        $query = 'UPDATE ' . $this->table .'
+                SET 
+                    title = :title,
+                    body = :body,
+                    author = :author,
+                    category_id = :category_id
+                WHERE id = :id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $this->body = htmlspecialchars(strip_tags($this->body));
+        $this->author = htmlspecialchars(strip_tags($this->author));
+        $this->category_id = htmlspecialchars(strip_tags($this->category_id));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $stmt->bindValue(':title', $this->title);
+        $stmt->bindValue(':body', $this->body);
+        $stmt->bindValue(':author', $this->author);
+        $stmt->bindValue(':category_id', $this->category_id);
+        $stmt->bindValue(':id', $this->id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+
+            printf("Error: %s.\n", $stmt->error);
+
+            return false;
+        }
+    }
 }
