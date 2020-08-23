@@ -1,2 +1,2 @@
 # PHP-REST-API
-learning code
+REST API - PHP with no framework
